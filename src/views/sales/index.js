@@ -58,7 +58,10 @@ function Widget({ widget, index, column, handleClickOpen }) {
         <Draggable draggableId={widget.id} index={index}>
             {(provided) => (
                 <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                    <Card sx={{ boxShadow: 3, maxWidth: 345, minWidth: 300, margin: '15px 0' }} variant="outlined">
+                    <Card
+                        sx={{ border: 0, boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px', maxWidth: 345, minWidth: 300, margin: '15px 0' }}
+                        variant="outlined"
+                    >
                         <CardHeader
                             sx={{ padding: '10px', alignItems: 'start' }}
                             avatar={
