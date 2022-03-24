@@ -378,8 +378,8 @@ const SamplePage = () => {
                                                 padding: '20px',
                                                 margin: '0 10px',
                                                 borderRadius: 2,
-                                                backgroundColor: '#e3f2fd',
-                                                borderTop: `5px solid ${colors[column]}`
+                                                backgroundColor: '#f8f8f8',
+                                                borderTop: `10px solid ${colors[column]}`
                                             }}
                                             key={index}
                                         >
