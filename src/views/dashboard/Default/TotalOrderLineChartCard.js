@@ -12,12 +12,21 @@ import Chart from 'react-apexcharts';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
-import ChartDataYear from './chart-data/total-order-year-line-chart';
+import ChartDataMonthManagement from './chart-data/total-order-month-line-chart';
+import ChartDataMonthAdvisor from './chart-data/total-order-month-line-chart-advisor';
+import ChartDataMonthCordinator from './chart-data/total-order-month-line-chart-cordinator';
+import ChartDataQuaterlyManagement from './chart-data/total-order-quaterly-line-chart';
+import ChartDataQuaterlyAdvisor from './chart-data/total-order-quaterly-line-chart-advisor';
+import ChartDataQuaterlyCordinator from './chart-data/total-order-quaterly-line-chart-cordinator';
+import ChartDataYearManagement from './chart-data/total-order-year-line-chart';
+import ChartDataYearAdvisor from './chart-data/total-order-year-line-chart-advisor';
+import ChartDataYearCordinator from './chart-data/total-order-year-line-chart-cordinator';
+// import ChartDataYear from './chart-data/total-o÷rder-year-line-chart';
 
 // assets
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useSelector } from 'react-redux';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
@@ -65,12 +74,17 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const TotalOrderLineChartCard = ({ isLoading }) => {
     const theme = useTheme();
+    const userType = useSelector((state) => state.customization.userType);
 
-    const [timeValue, setTimeValue] = useState(false);
+    const [timeValue, setTimeValue] = useState(0);
     const handleChangeTime = (event, newValue) => {
         setTimeValue(newValue);
     };
 
+    const userMonthChartData = userType == 0 ? ChartDataMonthManagement : userType == 1 ? ChartDataMonthAdvisor : ChartDataMonthCordinator;
+    const userQuaterlyChartData =
+        userType == 0 ? ChartDataQuaterlyManagement : userType == 1 ? ChartDataQuaterlyAdvisor : ChartDataQuaterlyCordinator;
+    const userYearChartData = userType == 0 ? ChartDataYearManagement : userType == 1 ? ChartDataYearAdvisor : ChartDataYearCordinator;
     return (
         <>
             {isLoading ? (
@@ -92,27 +106,36 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                 mt: 1
                                             }}
                                         >
-                                            <LocalMallOutlinedIcon fontSize="inherit" />
+                                            <AttachMoneyIcon fontSize="inherit" fill="white" />
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
                                         <Button
                                             disableElevation
-                                            variant={timeValue ? 'contained' : 'text'}
+                                            variant={timeValue == 0 ? 'contained' : 'text'}
                                             size="small"
                                             sx={{ color: 'inherit' }}
-                                            onClick={(e) => handleChangeTime(e, true)}
+                                            onClick={(e) => handleChangeTime(e, 0)}
                                         >
-                                            Month
+                                            Monthly
                                         </Button>
                                         <Button
                                             disableElevation
-                                            variant={!timeValue ? 'contained' : 'text'}
+                                            variant={timeValue == 1 ? 'contained' : 'text'}
                                             size="small"
                                             sx={{ color: 'inherit' }}
-                                            onClick={(e) => handleChangeTime(e, false)}
+                                            onClick={(e) => handleChangeTime(e, 1)}
                                         >
-                                            Year
+                                            Quaterly
+                                        </Button>
+                                        <Button
+                                            disableElevation
+                                            variant={!timeValue == 2 ? 'contained' : 'text'}
+                                            size="small"
+                                            sx={{ color: 'inherit' }}
+                                            onClick={(e) => handleChangeTime(e, 2)}
+                                        >
+                                            Yearly
                                         </Button>
                                     </Grid>
                                 </Grid>
@@ -122,13 +145,17 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                     <Grid item xs={6}>
                                         <Grid container alignItems="center">
                                             <Grid item>
-                                                {timeValue ? (
+                                                {timeValue == 0 ? (
                                                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                        $108
+                                                        {userType == 2 ? '$3,816.0' : userType == 1 ? '$25,727.0' : '$97,367.0'}
+                                                    </Typography>
+                                                ) : timeValue == 1 ? (
+                                                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                                        {userType == 2 ? '$6,816.0' : userType == 1 ? '$45,727.0' : '$4,37,367.0'}
                                                     </Typography>
                                                 ) : (
                                                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                        $961
+                                                        {userType == 2 ? '$10,816.0' : userType == 1 ? '$85,727.0' : '$7,97,367.0'}
                                                     </Typography>
                                                 )}
                                             </Grid>
@@ -152,13 +179,19 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    Commission Breakdown
                                                 </Typography>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {timeValue ? <Chart {...ChartDataMonth} /> : <Chart {...ChartDataYear} />}
+                                        {timeValue == 0 ? (
+                                            <Chart {...userMonthChartData} />
+                                        ) : timeValue == 1 ? (
+                                            <Chart {...userQuaterlyChartData} />
+                                        ) : (
+                                            <Chart {...userYearChartData} />
+                                        )}
                                     </Grid>
                                 </Grid>
                             </Grid>
