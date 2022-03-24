@@ -425,12 +425,19 @@ const SamplePage = () => {
             >
                 <DialogTitle id="alert-dialog-title">
                     <Typography variant="h3" gutterBottom component="div">
-                        {'Left note or this action!'}
+                        {'Activity comment'}
                     </Typography>
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <TextField id="standard-multiline-static" label="Note" multiline rows={4} variant="standard" sx={{ width: 500 }} />
+                        <TextField
+                            id="standard-multiline-static"
+                            label="Comment..."
+                            multiline
+                            rows={4}
+                            variant="standard"
+                            sx={{ width: 500 }}
+                        />
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
