@@ -26,6 +26,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -165,131 +175,243 @@ const SamplePage = () => {
         'First Meetings (Scheduled)': [
             {
                 id: 'widget-1',
-                content: 'hello'
+                content: 'hello',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-2',
-                content: 'this'
+                content: 'this',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-3',
-                content: 'is'
+                content: 'is',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-4',
-                content: 'so99ynoodles'
+                content: 'so99ynoodles',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         'First Meeting (Completed)': [
             {
                 id: 'widget-5',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-6',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-7',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         'LOA (Sent)': [
             {
                 id: 'widget-8',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-9',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-10',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         'LOA (Received)': [
             {
                 id: 'widget-11',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-12',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-13',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         Swerves: [
             {
                 id: 'widget-14',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-15',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-16',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         'Worth Chasing': [
             {
                 id: 'widget-17',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-18',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-19',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         'Not Worth Chasing': [
             {
                 id: 'widget-20',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-21',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-22',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         Dead: [
             {
                 id: 'widget-23',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-24',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-25',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ],
         Other: [
             {
                 id: 'widget-26',
-                content: 'I am'
+                content: 'I am',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-27',
-                content: 'a Web'
+                content: 'a Web',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             },
             {
                 id: 'widget-28',
-                content: 'developer'
+                content: 'developer',
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '+475876098',
+                created_at: new Date().toISOString()
             }
         ]
     });
@@ -404,7 +526,76 @@ const SamplePage = () => {
                                 </Box>
                             </DragDropContext>
                         </TabPanel>
-                        <TabPanel value="2">Item Two</TabPanel>
+                        <TabPanel value="2" sx={{ padding: 0 }}>
+                            <Box sx={{ background: '#f8f8f8', padding: 1 }}>
+                                {Object.keys(items).map((row, index) => (
+                                    <Accordion>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id={`panel1a-header-${index}`}
+                                            sx={{ borderLeft: `10px solid ${colors[row]}` }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    width: '100%',
+                                                    display: 'flex',
+                                                    flexDirection: 'row',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                <Typography>{row}</Typography>
+                                                <span>({items[row].length})</span>
+                                            </Box>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <TableContainer component={Paper}>
+                                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <TableCell align="center">Name</TableCell>
+                                                            <TableCell align="center">Phone</TableCell>
+                                                            <TableCell align="center">Email</TableCell>
+                                                            <TableCell align="center">Created at</TableCell>
+                                                            <TableCell align="center">Last activity</TableCell>
+                                                            <TableCell align="center">Updated at</TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        {items[row].map((row, index) => (
+                                                            <TableRow
+                                                                key={index}
+                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                            >
+                                                                <TableCell align="center" component="th" scope="row">
+                                                                    {row.name}
+                                                                </TableCell>
+                                                                <TableCell align="center" component="th" scope="row">
+                                                                    {row.phone}
+                                                                </TableCell>
+                                                                <TableCell align="center" component="th" scope="row">
+                                                                    {row.email}
+                                                                </TableCell>
+                                                                <TableCell align="center" component="th" scope="row">
+                                                                    {row.created_at}
+                                                                </TableCell>
+                                                                <TableCell align="center" component="th" scope="row">
+                                                                    {row.created_at}
+                                                                </TableCell>
+                                                                <TableCell align="center" component="th" scope="row">
+                                                                    {row.created_at}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ))}
+                            </Box>
+                        </TabPanel>
                     </Box>
                 </TabContext>
             </Box>
