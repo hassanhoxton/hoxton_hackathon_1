@@ -34,7 +34,7 @@ const chartData = {
                 enabled: false
             },
             x: {
-                show: false
+                show: true
             },
             y: {
                 title: 'Commission'
@@ -47,7 +47,7 @@ const chartData = {
     series: [
         {
             name: 'Networth',
-            data: [3500000, 4400000, 900000, 5400000, 7722210]
+            data: [1500000, 1400000, 300000, 1400000]
         }
     ]
 };

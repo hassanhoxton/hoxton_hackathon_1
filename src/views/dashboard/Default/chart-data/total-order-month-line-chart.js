@@ -1,5 +1,4 @@
 // ===========================|| DASHBOARD - TOTAL ORDER MONTH CHART ||=========================== //
-
 const chartData = {
     type: 'line',
     height: 90,
@@ -23,18 +22,22 @@ const chartData = {
         },
         yaxis: {
             min: 0,
-            max: 100
+            max: 1000000
+        },
+        xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
         },
         tooltip: {
+            enabled: true,
             theme: 'dark',
             fixed: {
                 enabled: false
             },
             x: {
-                show: false
+                show: true
             },
             y: {
-                title: 'Total Order'
+                title: 'Commission'
             },
             marker: {
                 show: false
@@ -43,8 +46,8 @@ const chartData = {
     },
     series: [
         {
-            name: 'series1',
-            data: [45, 66, 41, 89, 25, 44, 9, 54]
+            name: 'Networth',
+            data: [450000, 660000, 410000, 890000, 250000, 440000, 90000, 540000]
         }
     ]
 };

@@ -1,5 +1,4 @@
-// ===========================|| DASHBOARD - TOTAL ORDER YEAR CHART ||=========================== //
-
+// ===========================|| DASHBOARD - TOTAL ORDER MONTH CHART ||=========================== //
 const chartData = {
     type: 'line',
     height: 90,
@@ -23,10 +22,10 @@ const chartData = {
         },
         yaxis: {
             min: 0,
-            max: 10000000
+            max: 1000000
         },
         xaxis: {
-            categories: ['2018', '2019', '2020', '2021', '2022']
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
         },
         tooltip: {
             theme: 'dark',
@@ -34,7 +33,7 @@ const chartData = {
                 enabled: false
             },
             x: {
-                show: false
+                show: true
             },
             y: {
                 title: 'Commission'
@@ -47,7 +46,7 @@ const chartData = {
     series: [
         {
             name: 'Networth',
-            data: [3500000, 4400000, 900000, 5400000, 7722210]
+            data: [230000, 330000, 210000, 490000, 150000, 240000, 50000, 240000]
         }
     ]
 };
