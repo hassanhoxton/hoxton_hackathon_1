@@ -128,8 +128,15 @@ function Column({ droppableId, widgets, handleClickOpen, handleRemove }) {
         <Droppable droppableId={droppableId}>
             {(provided) => (
                 <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ minWidth: 300, maxWidth: 345, minHeight: 200 }}>
-                    <Typography variant="h3" gutterBottom component="div" color="#232b62">
-                        {droppableId}
+                    <Typography
+                        variant="h3"
+                        gutterBottom
+                        component="div"
+                        color="#232b62"
+                        sx={{ display: 'flex', justifyContent: 'space-between' }}
+                    >
+                        <span>{droppableId}</span>
+                        <span>({widgets.length})</span>
                     </Typography>
                     <WidgetList widgets={widgets} id={droppableId} handleClickOpen={handleClickOpen} handleRemove={handleRemove} />
                     {provided.placeholder}
