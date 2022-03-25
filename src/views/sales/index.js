@@ -36,6 +36,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import moment from 'moment';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -59,7 +61,7 @@ const ExpandMore = styled((props) => {
     })
 }));
 
-function Widget({ widget, index, column, handleClickOpen }) {
+function Widget({ widget, index, column, handleClickOpen, handlePin }) {
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -69,18 +71,25 @@ function Widget({ widget, index, column, handleClickOpen }) {
             {(provided) => (
                 <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                     <Card
-                        sx={{ border: 0, boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px', maxWidth: 345, minWidth: 300, margin: '15px 0' }}
+                        sx={{
+                            border: 0,
+                            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+                            maxWidth: 345,
+                            minWidth: 300,
+                            margin: '15px 0',
+                            position: 'relative'
+                        }}
                         variant="outlined"
                     >
                         <CardHeader
-                            sx={{ padding: '10px', alignItems: 'start' }}
+                            sx={{ padding: '10px 18px 10px 10px', alignItems: 'start', maxHeight: '55px' }}
                             avatar={
                                 <Avatar sx={{ bgcolor: '#232b62', color: '#FFF' }} aria-label="recipe">
-                                    R
+                                    {widget.name[0]}
                                 </Avatar>
                             }
                             action={
-                                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '85px' }}>
+                                <Box>
                                     <IconButton
                                         size="small"
                                         aria-label="settings"
@@ -89,19 +98,24 @@ function Widget({ widget, index, column, handleClickOpen }) {
                                     >
                                         <DeleteIcon />
                                     </IconButton>
-                                    <ExpandMore
-                                        expand={expanded}
-                                        onClick={handleExpandClick}
-                                        aria-expanded={expanded}
-                                        aria-label="show more"
-                                    >
-                                        <ExpandMoreIcon />
-                                    </ExpandMore>
                                 </Box>
                             }
-                            title="Shrimp and Chorizo Paella"
-                            subheader="September 14, 2016"
+                            title={widget.name}
+                            subheader={moment(widget.created_at).format('LLL')}
                         />
+                        <CardActions sx={{ padding: '0 10px 10px 10px' }} disableSpacing>
+                            <IconButton
+                                size="small"
+                                aria-label="settings"
+                                sx={{ color: widget.is_pinned ? '#f5c65c' : '#e3e3e3', left: '3px' }}
+                                onClick={() => handlePin(column, widget.id)}
+                            >
+                                <PushPinIcon />
+                            </IconButton>
+                            <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
+                                <ExpandMoreIcon />
+                            </ExpandMore>
+                        </CardActions>
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
                             <CardContent>
                                 <Typography paragraph>Method:</Typography>
@@ -130,13 +144,21 @@ function Widget({ widget, index, column, handleClickOpen }) {
         </Draggable>
     );
 }
-const WidgetList = memo(function WidgetList({ widgets, id, handleClickOpen, handleRemove }) {
-    return [...(widgets || [])]?.map((widget, index) => (
-        <Widget widget={widget} index={index} key={widget.id} column={id} handleClickOpen={handleClickOpen} handleRemove={handleRemove} />
+const WidgetList = memo(function WidgetList({ widgets, id, handleClickOpen, handleRemove, handlePin }) {
+    return [...(widgets.sort((x, y) => (x.is_pinned === y.is_pinned ? 0 : x.is_pinned ? -1 : 1)) || [])]?.map((widget, index) => (
+        <Widget
+            widget={widget}
+            index={index}
+            key={widget.id}
+            column={id}
+            handleClickOpen={handleClickOpen}
+            handlePin={handlePin}
+            handleRemove={handleRemove}
+        />
     ));
 });
 
-function Column({ droppableId, widgets, handleClickOpen, handleRemove }) {
+function Column({ droppableId, widgets, handleClickOpen, handleRemove, handlePin }) {
     return (
         <Droppable droppableId={droppableId}>
             {(provided) => (
@@ -151,7 +173,13 @@ function Column({ droppableId, widgets, handleClickOpen, handleRemove }) {
                         <span>{droppableId}</span>
                         <span>({widgets.length})</span>
                     </Typography>
-                    <WidgetList widgets={widgets} id={droppableId} handleClickOpen={handleClickOpen} handleRemove={handleRemove} />
+                    <WidgetList
+                        widgets={widgets}
+                        id={droppableId}
+                        handleClickOpen={handleClickOpen}
+                        handlePin={handlePin}
+                        handleRemove={handleRemove}
+                    />
                     {provided.placeholder}
                 </Box>
             )}
@@ -176,112 +204,125 @@ const SamplePage = () => {
             {
                 id: 'widget-1',
                 content: 'hello',
-                name: 'John Doe',
+                name: 'Liam Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-2',
                 content: 'this',
-                name: 'John Doe',
+                name: 'Noah Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-3',
                 content: 'is',
-                name: 'John Doe',
+                name: 'Oliver Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-4',
                 content: 'so99ynoodles',
-                name: 'John Doe',
+                name: 'Elijah Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: true
             }
         ],
         'First Meeting (Completed)': [
             {
                 id: 'widget-5',
                 content: 'I am',
-                name: 'John Doe',
+                name: 'William Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-6',
                 content: 'a Web',
-                name: 'John Doe',
+                name: 'James Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-7',
                 content: 'developer',
-                name: 'John Doe',
+                name: 'Benjamin Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ],
         'LOA (Sent)': [
             {
                 id: 'widget-8',
                 content: 'I am',
-                name: 'John Doe',
+                name: 'Lucas Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-9',
                 content: 'a Web',
-                name: 'John Doe',
+                name: 'Henry Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-10',
                 content: 'developer',
-                name: 'John Doe',
+                name: 'Alexander Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ],
         'LOA (Received)': [
             {
                 id: 'widget-11',
                 content: 'I am',
-                name: 'John Doe',
+                name: 'Olivia Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-12',
                 content: 'a Web',
-                name: 'John Doe',
+                name: 'Emma Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-13',
                 content: 'developer',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Ava Doe',
+                email: 'ava@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ],
         Swerves: [
@@ -291,23 +332,26 @@ const SamplePage = () => {
                 name: 'John Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-15',
                 content: 'a Web',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Charlotte Doe',
+                email: 'charlotte@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-16',
                 content: 'developer',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Sophia Doe',
+                email: 'sophia@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ],
         'Worth Chasing': [
@@ -317,67 +361,75 @@ const SamplePage = () => {
                 name: 'John Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-18',
                 content: 'a Web',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Amelia Doe',
+                email: 'amelia@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-19',
                 content: 'developer',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Isabella Doe',
+                email: 'isabella@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ],
         'Not Worth Chasing': [
             {
                 id: 'widget-20',
                 content: 'I am',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Mia Doe',
+                email: 'mia@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-21',
                 content: 'a Web',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Evelyn Doe',
+                email: 'evelyn@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-22',
                 content: 'developer',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Harper Doe',
+                email: 'harper@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ],
         Dead: [
             {
                 id: 'widget-23',
                 content: 'I am',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Liam Doe',
+                email: 'liam@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-24',
                 content: 'a Web',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Olivia Doe',
+                email: 'olivia@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-25',
@@ -385,33 +437,37 @@ const SamplePage = () => {
                 name: 'John Doe',
                 email: 'john@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ],
         Other: [
             {
                 id: 'widget-26',
                 content: 'I am',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Noah Doe',
+                email: 'noah@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-27',
                 content: 'a Web',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Emma Doe',
+                email: 'emma@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             },
             {
                 id: 'widget-28',
                 content: 'developer',
-                name: 'John Doe',
-                email: 'john@doe.com',
+                name: 'Oliver Doe',
+                email: 'oliver@doe.com',
                 phone: '+475876098',
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                is_pinned: false
             }
         ]
     });
@@ -421,6 +477,16 @@ const SamplePage = () => {
     const [old, setOld] = useState(null);
     const handleClickOpen = (column, id) => {
         setOpen({ column, id });
+    };
+
+    const handlePin = (column, id) => {
+        const old = { ...items };
+        old[column].map((item) => {
+            if (item.id === id) item.is_pinned = !item.is_pinned;
+
+            return item;
+        });
+        setItems(old);
     };
 
     const handleClose = () => {
@@ -520,6 +586,7 @@ const SamplePage = () => {
                                                 droppableId={column}
                                                 handleClickOpen={handleClickOpen}
                                                 handleRemove={handleRemove}
+                                                handlePin={handlePin}
                                             />
                                         </Box>
                                     ))}
@@ -560,34 +627,47 @@ const SamplePage = () => {
                                                             <TableCell align="center">Created at</TableCell>
                                                             <TableCell align="center">Last activity</TableCell>
                                                             <TableCell align="center">Updated at</TableCell>
+                                                            <TableCell align="center"></TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        {items[row].map((row, index) => (
-                                                            <TableRow
-                                                                key={index}
-                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                            >
-                                                                <TableCell align="center" component="th" scope="row">
-                                                                    {row.name}
-                                                                </TableCell>
-                                                                <TableCell align="center" component="th" scope="row">
-                                                                    {row.phone}
-                                                                </TableCell>
-                                                                <TableCell align="center" component="th" scope="row">
-                                                                    {row.email}
-                                                                </TableCell>
-                                                                <TableCell align="center" component="th" scope="row">
-                                                                    {row.created_at}
-                                                                </TableCell>
-                                                                <TableCell align="center" component="th" scope="row">
-                                                                    {row.created_at}
-                                                                </TableCell>
-                                                                <TableCell align="center" component="th" scope="row">
-                                                                    {row.created_at}
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        ))}
+                                                        {items[row]
+                                                            .sort((x, y) => (x.is_pinned === y.is_pinned ? 0 : x.is_pinned ? -1 : 1))
+                                                            .map((item, index) => (
+                                                                <TableRow
+                                                                    key={index}
+                                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                >
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        {item.name}
+                                                                    </TableCell>
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        {item.phone}
+                                                                    </TableCell>
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        {item.email}
+                                                                    </TableCell>
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        {moment(item.created_at).format('LLL')}
+                                                                    </TableCell>
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        {moment(item.created_at).format('LLL')}
+                                                                    </TableCell>
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        {moment(item.created_at).format('LLL')}
+                                                                    </TableCell>
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        <IconButton
+                                                                            size="small"
+                                                                            aria-label="settings"
+                                                                            sx={{ color: item.is_pinned ? '#f5c65c' : '#e3e3e3' }}
+                                                                            onClick={() => handlePin(row, item.id)}
+                                                                        >
+                                                                            <PushPinIcon />
+                                                                        </IconButton>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            ))}
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
