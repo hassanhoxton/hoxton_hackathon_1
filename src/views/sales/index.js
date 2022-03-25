@@ -10,7 +10,7 @@ import TabContext from '@mui/lab/TabContext';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Card from '@mui/material/Card';
-import { CardHeader, IconButton } from '@mui/material';
+import { CardHeader, Grid, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { styled } from '@mui/material/styles';
@@ -38,6 +38,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import moment from 'moment';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -544,8 +547,66 @@ const SamplePage = () => {
         setValue(newValue);
     };
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [selected, setSelected] = useState(null);
+    const openFilter = Boolean(anchorEl);
+    const handleClickFilter = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleCloseFilter = (id) => {
+        setSelected(id);
+        setAnchorEl(null);
+    };
+
     return (
-        <MainCard title="Sales page">
+        <MainCard
+            title={
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h3" component="div">
+                        Sales page
+                    </Typography>
+                    <div>
+                        <Button
+                            id="basic-button"
+                            aria-controls={openFilter ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openFilter ? 'true' : undefined}
+                            onClick={handleClickFilter}
+                        >
+                            <FilterAltIcon /> Filter
+                        </Button>
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={openFilter}
+                            onClose={handleCloseFilter}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button'
+                            }}
+                        >
+                            <Grid sx={{ maxWidth: '600px' }} container spacing={2}>
+                                {Object.keys(items).map((item, index) => (
+                                    <Grid key={index} item xs={6}>
+                                        <MenuItem
+                                            onClick={() => handleCloseFilter(index)}
+                                            sx={{ background: index === selected ? '#ccddf5' : '#fff' }}
+                                        >
+                                            <Avatar
+                                                sx={{ bgcolor: colors[item], color: '#232b62', marginRight: '5px' }}
+                                                aria-label="recipe"
+                                            >
+                                                {item[0]}
+                                            </Avatar>
+                                            {item}
+                                        </MenuItem>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Menu>
+                    </div>
+                </Box>
+            }
+        >
             <Box sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
