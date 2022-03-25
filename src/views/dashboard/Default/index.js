@@ -17,7 +17,9 @@ import RatioChart from './RatioChart';
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
-        setLoading(false);
+        setTimeout(() => {
+            setLoading(false);
+        }, 500);
     }, []);
 
     return (

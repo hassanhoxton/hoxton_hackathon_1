@@ -41,7 +41,7 @@ const OpportunitiesChart = ({ isLoading }) => {
             {isLoading ? (
                 <SkeletonTotalGrowthBarChart />
             ) : (
-                <MainCard style={{ height: 350 }}>
+                <MainCard style={{ height: 450 }}>
                     <Grid container spacing={gridSpacing}>
                         <Grid item xs={12}>
                             <Grid container alignItems="center" justifyContent="space-between">

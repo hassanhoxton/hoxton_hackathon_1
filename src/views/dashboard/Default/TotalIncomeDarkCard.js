@@ -93,7 +93,7 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75, zIndex: 5000 }}>
-                                            {userType == 2 ? '$2,51k' : userType == 1 ? '$3,557k' : '$9,636k'}
+                                            {userType == 2 ? '$251k' : userType == 1 ? '$3,557k' : '$9,636k'}
                                         </Typography>
                                     </Grid>
                                     <Grid item>

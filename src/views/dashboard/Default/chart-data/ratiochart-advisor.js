@@ -1,13 +1,13 @@
 // ===========================|| DASHBOARD - TOTAL GROWTH BAR CHART ||=========================== //
 
 const chartData = {
-    height: 250,
+    height: 350,
     type: 'bar',
     options: {
         colors: ['#2EB086', '#B33030', '#FFAD60'],
         chart: {
-            id: 'bar-chart',
-            stacked: true,
+            id: 'ratio-chart-advisor',
+            stacked: false,
             toolbar: {
                 show: true
             },
@@ -34,7 +34,7 @@ const chartData = {
             }
         },
         xaxis: {
-            type: 'category',
+            type: 'categories',
             categories: [
                 'LOA(Sent)',
                 'LOA (Received)',
