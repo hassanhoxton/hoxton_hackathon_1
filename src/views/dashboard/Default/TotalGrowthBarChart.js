@@ -104,7 +104,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item>
+                                {/* <Grid item>
                                     <TextField
                                         id="standard-select-currency"
                                         select
@@ -117,7 +117,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                             </MenuItem>
                                         ))}
                                     </TextField>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>

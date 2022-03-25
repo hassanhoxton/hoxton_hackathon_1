@@ -36,6 +36,13 @@ const chartData = {
             type: 'category',
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
+        yaxis: {
+            labels: {
+                formatter: function (value) {
+                    return numberWithCommas(value);
+                }
+            }
+        },
         legend: {
             show: true,
             fontSize: '14px',
@@ -84,4 +91,8 @@ const chartData = {
         }
     ]
 };
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 export default chartData;
