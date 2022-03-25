@@ -5,6 +5,7 @@ import CordinatorIcon from '@mui/icons-material/Person';
 import AdvisorIcon from '@mui/icons-material/AccountBox';
 import ManagementIcon from '@mui/icons-material/Badge';
 import { useSelector, useDispatch } from 'react-redux';
+import MultipleSelectChip from '../../MultySelect';
 
 export default function Switcher() {
     // const [value, setValue] = React.useState(0);
@@ -13,6 +14,7 @@ export default function Switcher() {
     const setUserType = (value) => ({ type: 'SET_USER_TYPE', value });
     return (
         <Box sx={{ position: 'fixed', bottom: 0, left: 0 }}>
+            <MultipleSelectChip />
             <BottomNavigation
                 showLabels
                 value={userType}
