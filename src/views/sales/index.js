@@ -41,6 +41,17 @@ import moment from 'moment';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import ListSubheader from '@mui/material/ListSubheader';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import StarBorder from '@mui/icons-material/StarBorder';
+import Filters from './filters';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -565,45 +576,7 @@ const SamplePage = () => {
                     <Typography variant="h3" component="div">
                         Sales page
                     </Typography>
-                    <div>
-                        <Button
-                            id="basic-button"
-                            aria-controls={openFilter ? 'basic-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={openFilter ? 'true' : undefined}
-                            onClick={handleClickFilter}
-                        >
-                            <FilterAltIcon /> Filter
-                        </Button>
-                        <Menu
-                            id="basic-menu"
-                            anchorEl={anchorEl}
-                            open={openFilter}
-                            onClose={handleCloseFilter}
-                            MenuListProps={{
-                                'aria-labelledby': 'basic-button'
-                            }}
-                        >
-                            <Grid sx={{ maxWidth: '600px' }} container spacing={2}>
-                                {Object.keys(items).map((item, index) => (
-                                    <Grid key={index} item xs={6}>
-                                        <MenuItem
-                                            onClick={() => handleCloseFilter(index)}
-                                            sx={{ background: index === selected ? '#ccddf5' : '#fff' }}
-                                        >
-                                            <Avatar
-                                                sx={{ bgcolor: colors[item], color: '#232b62', marginRight: '5px' }}
-                                                aria-label="recipe"
-                                            >
-                                                {item[0]}
-                                            </Avatar>
-                                            {item}
-                                        </MenuItem>
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        </Menu>
-                    </div>
+                    <Filters />
                 </Box>
             }
         >
