@@ -27,21 +27,19 @@ const OpportunitiesChart = ({ isLoading }) => {
 
     const chartData = userType == 2 ? chartDataManagement : userType == 1 ? chartDataAdvisor : chartDataCordinator;
 
-    const { navType } = customization;
-
     useEffect(() => {
         // do not load chart when loading
-        if (!isLoading) {
-            ApexCharts.exec(`pie-chart`, 'updateOptions', chartData);
+        if (!isLoading && chartData) {
+            ApexCharts.exec(`ratio-chart-cordinator`, 'updateOptions', chartData);
         }
-    }, [navType, isLoading]);
+    }, [isLoading, chartData]);
 
     return (
         <>
             {isLoading ? (
                 <SkeletonTotalGrowthBarChart />
             ) : (
-                <MainCard style={{ height: 350 }}>
+                <MainCard style={{ height: 450 }}>
                     <Grid container spacing={gridSpacing}>
                         <Grid item xs={12}>
                             <Grid container alignItems="center" justifyContent="space-between">
